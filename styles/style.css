@@ -1,0 +1,47 @@
+
+*{
+    font-family: sans-serif;
+}
+h1{
+   text-align: center;
+   color: #fff !important;
+   font-weight: bold !important;
+   font-style: italic !important;
+}
+h4{
+    text-align: center;
+    color: #04009A !important;
+    font-weight: bold !important;
+}
+#me{
+    position: relative;
+    width: 30%;
+    height:auto;
+    margin: 0 auto;
+    display: block;
+}
+#me video{
+    position: relative !important;
+}
+#remote-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap:  wrap;
+}
+#remote-container video{
+    position: relative !important;
+}
+#screen-share-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap:  wrap;
+}
+#screen-share-container video{
+    position: relative !important;
+}
+#buttons-container {
+  position: absolute;
+  z-index: 2;
+  width: 100vw;
+}

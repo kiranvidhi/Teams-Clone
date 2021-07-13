@@ -1,0 +1,187 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="UTF-8">
+      <title>Teams</title>
+      <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+      <link rel="icon" href="favicon.ico" type="image/x-icon">
+      <link rel="stylesheet" href="./styles/style.css">
+      <link rel="stylesheet" href="./styles/chat.css">
+
+  </head>
+  <body>
+    <div class="allContainer"  style="background-image: url(https://wallpaperaccess.com/full/2312628.jpg"); >
+      <!-- CHAT_BOX -->
+    <div id="chatBox">
+      <div class="chatContainer">
+        <div class="chat">
+          <div class="chat_header">
+            <h1>Chat Box</h1>
+          </div>
+          <div id="chat_fullscreen" class="chat_conversion chat_converse">
+            <!-- msgs will be dynamically added below -->
+          </div>
+          <div class="chatUi_field">
+            <textarea id="chatTextInput" name="chat_message" placeholder="Send a message" class="chat_field chat_message"></textarea>
+            <a id="chatUi_send" class="chatUi"><i class="zmdi zmdi-mail-send"></i></a>
+          </div>
+        </div>
+        <a id="chatToggleBtn" class="chatUi"><i id="chatIcon" class="zmdi zmdi-comment-outline"></i></a>
+      </div>
+      <div id="vc">
+        <div class="card text-center" style="width: 18rem;">
+          <img src="https://www.socialbakers.com/website/storage/2020/04/Phils-Video-Tips.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Video Call</h5>
+            <p class="card-text">Interact face-to-face with your chat buddies.</p>
+            <button onclick="myFunction()" id="videoCall" type="button" class="btn btn-primary btn-lg">
+              Start Video call
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video-Call -->
+    <div id="Video call" style="display:none;">
+      <h1>TEAMS</h1>
+
+      <div id="screen-share-btn-container" class="col-2 float-left text-left mt-2">
+         <button id="screen-share-btn"  type="button" class="btn btn-lg">
+           <i id="screen-share-icon" class="fas fa-desktop"></i>
+         </button>
+     </div>
+      <div id="buttons-container" class="row justify-content-center mt-3">
+  	        <div class="col-md-2 text-center">
+  		        <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+  			        <i id="mic-icon" class="fas fa-microphone"></i>
+  		        </button>
+  	        </div>
+  	       <div class="col-md-2 text-center">
+  		        <button id="video-btn"  type="button" class="btn btn-block btn-dark btn-lg">
+  			        <i id="video-icon" class="fas fa-video"></i>
+  		        </button>
+      	  </div>
+  	      <div class="col-md-2 text-center">
+  		       <button id="exit-btn"  type="button" id="callEnd" class="btn btn-block btn-danger btn-lg">
+  			        <i id="exit-icon" class="fas fa-phone-slash"></i>
+  		       </button>
+  	     </div>
+         <div class="col-md-12 text-center">
+           <div id="screen-share-container"></div>
+           <h4 >Remote Video</h4>
+           <div id="remote-container"></div>
+           <h4>My Video</h4>
+           <div id="me">
+           </div>
+         </div>
+         </div>
+      </div>
+    </div>
+
+
+  <!-- Modal Form -->
+      <div class="modal fade" id="modalForm">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+             <h4 class="modal-title w-100 font-weight-bold">Join Channel</h4>
+             <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-4">
+              <input type="number" id="form-uid" class="form-control" value="1001" data-decimals="0"/>
+              <label for="form-uid">UID</label>
+            </div>
+            <div class="md-form mb-4">
+              <input type="text" id="form-username" class="form-control"/>
+              <label for="form-username">UserName</label>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id="join-channel" class="btn btn-default">Join Channel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="./scripts/Agora_Web_SDK_FULL/AgoraRTCSDK-3.6.0.js"></script>
+  <!-- PubNub SDK -->
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.4.min.js"></script>
+  <script src="./scripts/script.js"></script>
+  <!-- UI Controls -->
+  <script src="ui.js"></script>
+  <!-- PubNub Client -->
+  <script src="pubnub-interface.js"></script>
+  <!-- Styling and helper frameworks - BootStrap, JQuery, FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Agora SDK -->
+
+  <!-- chat -->
+  <script src="chat.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+  <!-- disable ui elements and show join channel modal -->
+  <script type="text/javascript">
+    $("#mic-btn").prop("disabled", true);
+    $("#video-btn").prop("disabled", true);
+    $("#screen-share-btn").prop("disabled", true);
+    $("#exit-btn").prop("disabled", true);
+
+    $(document).ready(function(){
+      $("#modalForm").modal("show");
+    });
+  </script>
+  <script type="text/javascript">
+    // init the session when user clicks join
+    // join channel modal
+    $( "#join-channel" ).click(function( event ) {
+      var agoraAppId = "c52eafb36b1642eab50b88c3fefbd26a";
+      var channelName = "myChannel1";
+      var pubKey = "pub-c-178eb4b3-6665-4bf9-bf70-a1a7c8940d3a";
+      var subKey = "sub-c-34a4d158-d42c-11eb-92a6-1ab188f49893";
+      var uid = $("#form-uid").val();
+      var username = $("#form-username").val();
+      $("#modalForm").modal("hide");
+       clientInit();
+       // Intitialize the pubnub client.
+       initPubNub(pubKey, subKey, uid, channelName, username);
+    });
+  </script>
+  <script type="text/javascript">
+      $( "#videoCall" ).click(function( event ) {
+        var uid = $("#form-uid").val();
+        // Join the channel
+        joinChannel();
+      });
+  </script>
+  <script type="text/javascript">
+    toggleChatWindow();
+  </script>
+
+  <script type="text/javascript">
+
+  function myFunction() {
+  document.getElementById("Video call").style.display="block";
+  document.getElementById("vc").style.display="none";
+  toggleChatWindow();
+  $('.chat').css({
+    'right': '5%',
+    'bottom': '10%',
+    'overflow':'auto'
+    });
+  $('#chat_fullscreen').css({
+    'height':'420px'
+    });
+  }
+  </script>
+
+  </html>
